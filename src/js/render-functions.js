@@ -1,10 +1,11 @@
+
 export function addLoader(gallery) {
-  const loaderHTML = `
+    const addedLoader = `
     <div class="loader-container">
-      <span class="loader-text">Loading images, please wait...</span>
+    <span class="loader-text">Loading images, please wait...</span>
     </div>
   `;
-  gallery.insertAdjacentHTML('beforebegin', loaderHTML);
+    gallery.insertAdjacentHTML('afterend', addedLoader);
 }
 
 export function removeLoader() {
@@ -14,7 +15,7 @@ export function removeLoader() {
   }
 }
 
-export function markup(data) {
+export function createMarkup(data) {
   return data.hits
     .map(
       ({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => `
@@ -24,6 +25,8 @@ export function markup(data) {
                   class="gallery-image"
                   src="${webformatURL}"
                   alt="${tags}"
+                  loading="lazy"
+                  
                 />
               </a>
               <ul class="img-wrapper">
@@ -36,4 +39,16 @@ export function markup(data) {
       `
     )
     .join('');
+}
+
+export function showBtn() {
+    const loadMoreBtn = document.querySelector('.js-btn-wrapper');
+
+  loadMoreBtn.classList.remove('is-hidden');
+}
+
+export function hideBtn() {
+    const loadMoreBtn = document.querySelector('.js-btn-wrapper');
+
+    loadMoreBtn.classList.add('is-hidden');
 }
