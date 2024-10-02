@@ -1,22 +1,24 @@
-import{S as u,i as n}from"./assets/vendor-5ObWk2rO.js";(function(){const s=document.createElement("link").relList;if(s&&s.supports&&s.supports("modulepreload"))return;for(const e of document.querySelectorAll('link[rel="modulepreload"]'))a(e);new MutationObserver(e=>{for(const r of e)if(r.type==="childList")for(const i of r.addedNodes)i.tagName==="LINK"&&i.rel==="modulepreload"&&a(i)}).observe(document,{childList:!0,subtree:!0});function o(e){const r={};return e.integrity&&(r.integrity=e.integrity),e.referrerPolicy&&(r.referrerPolicy=e.referrerPolicy),e.crossOrigin==="use-credentials"?r.credentials="include":e.crossOrigin==="anonymous"?r.credentials="omit":r.credentials="same-origin",r}function a(e){if(e.ep)return;e.ep=!0;const r=o(e);fetch(e.href,r)}})();function m(t){const s=new URLSearchParams({key:API_KEY,q:t,image_type:"photo",orientation:"horizontal",safesearch:!0});return fetch(`${API_URL}?${s}`).then(o=>{if(!o.ok)throw new Error(`HTTP error! Status: ${o.status}`);return o.json()}).catch(o=>{throw console.error("Error:",o),o})}function f(t){t.insertAdjacentHTML("beforebegin",`
+import{a as w,S,i as c}from"./assets/vendor-D73Uttp0.js";(function(){const o=document.createElement("link").relList;if(o&&o.supports&&o.supports("modulepreload"))return;for(const t of document.querySelectorAll('link[rel="modulepreload"]'))s(t);new MutationObserver(t=>{for(const r of t)if(r.type==="childList")for(const i of r.addedNodes)i.tagName==="LINK"&&i.rel==="modulepreload"&&s(i)}).observe(document,{childList:!0,subtree:!0});function a(t){const r={};return t.integrity&&(r.integrity=t.integrity),t.referrerPolicy&&(r.referrerPolicy=t.referrerPolicy),t.crossOrigin==="use-credentials"?r.credentials="include":t.crossOrigin==="anonymous"?r.credentials="omit":r.credentials="same-origin",r}function s(t){if(t.ep)return;t.ep=!0;const r=a(t);fetch(t.href,r)}})();function f(e){e.insertAdjacentHTML("afterend",`
     <div class="loader-container">
-      <span class="loader-text">Loading images, please wait...</span>
+    <span class="loader-text">Loading images, please wait...</span>
     </div>
-  `)}function d(){const t=document.querySelector(".loader-container");t&&t.remove()}function p(t){return t.hits.map(({webformatURL:s,largeImageURL:o,tags:a,likes:e,views:r,comments:i,downloads:c})=>`
+  `)}function p(){const e=document.querySelector(".loader-container");e&&e.remove()}function b(e){return e.hits.map(({webformatURL:o,largeImageURL:a,tags:s,likes:t,views:r,comments:i,downloads:L})=>`
             <li class="gallery-item">
-              <a class="gallery-link" href="${o}">
+              <a class="gallery-link" href="${a}">
                 <img
                   class="gallery-image"
-                  src="${s}"
-                  alt="${a}"
+                  src="${o}"
+                  alt="${s}"
+                  loading="lazy"
+                  
                 />
               </a>
               <ul class="img-wrapper">
-                <li class="img-descr">Likes<span>${e}</span></li>
+                <li class="img-descr">Likes<span>${t}</span></li>
                 <li class="img-descr">Views<span>${r}</span></li>
                 <li class="img-descr">Comments<span>${i}</span></li>
-                <li class="img-descr">Downloads<span>${c}</span></li>
+                <li class="img-descr">Downloads<span>${L}</span></li>
               </ul>
             </li>
-      `).join("")}const g=document.querySelector(".search-form"),l=document.querySelector(".gallery");let h=new u(".gallery a",{captionsData:"alt",captionDelay:250});g.addEventListener("submit",y);function y(t){t.preventDefault();const s=new FormData(t.target),{search:o}=Object.fromEntries(s.entries()),a=o.trim();if(!a){n.error({title:"Error",message:"The search query is empty.",position:"topRight"});return}l.innerHTML="",f(l),m(a).then(e=>{if(e.hits.length===0){n.info({position:"topRight",title:"Info",message:"Sorry, there are no images matching your search query. Please try again!"});return}const r=p(e);l.insertAdjacentHTML("beforeend",r),h.refresh()}).catch(e=>{n.error({title:"Error",message:`Error: ${e.message}`,position:"topRight"})}).finally(()=>{d()})}
+      `).join("")}function q(){document.querySelector(".js-btn-wrapper").classList.remove("is-hidden")}function u(){document.querySelector(".js-btn-wrapper").classList.add("is-hidden")}const E="https://pixabay.com/api/",M="46105893-c3619f828e66c5e4a4f6c6159";async function g(e,o=15,a=15){return(await w.get(E,{params:{key:M,q:e,image_type:"photo",orientation:"horizontal",safesearch:!0,page:o,per_page:a}})).data}const v=document.querySelector(".js-search-form");document.querySelector(".js-gallery");const n=document.querySelector(".gallery");document.querySelector(".loader");const B=document.querySelector(".js-btn-wrapper");let h=new S(".gallery a",{captionsData:"alt",captionDelay:250}),l="",d=1,m=0;v.addEventListener("submit",$);B.addEventListener("click",D);u();function j(){n.innerHTML="",u(),d=1,m=0}async function $(e){e.preventDefault();const o=new FormData(e.target),{search:a}=Object.fromEntries(o.entries());if(l=a.trim(),!l){c.error({title:"Error",message:"The search query is empty.",position:"topRight"});return}j(),f(n);try{const s=await g(l,d);if(m=s.totalHits,s.hits.length===0){c.info({position:"topRight",title:"Info",message:"Sorry, there are no images matching your search query. Please try again!"});return}y(s),h.refresh(),q()}catch(s){c.error({title:"Error",message:`Error: ${s.message}`,position:"topRight"})}finally{p()}}async function D(){d+=1,f(n);try{const e=await g(l,d);y(e),h.refresh(),O(),n.children.length>m&&(u(),c.info({position:"topRight",title:"Info",message:"We're sorry, but you've reached the end of search results."}))}catch(e){c.error({title:"Error",message:`Error: ${e.message}`,position:"topRight"})}finally{p()}}function y(e){const o=b(e);n.insertAdjacentHTML("beforeend",o)}function O(){const{height:e}=n.firstElementChild.getBoundingClientRect();window.scrollBy({top:e*2,behavior:"smooth"})}
 //# sourceMappingURL=index.js.map
