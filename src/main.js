@@ -98,8 +98,8 @@ async function onLoadMore() {
 
       
       
-      if (gallery.children.length > totalHits) {
-hideBtn()
+     if (gallery.children.length >= totalHits || data.hits.length < 15) {
+      hideBtn();
       iziToast.info({
         position: 'topRight',
         title: 'Info',
