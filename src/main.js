@@ -2,7 +2,6 @@ import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
-
 import { addLoader, removeLoader,createMarkup } from "./js/render-functions";
 import { showBtn, hideBtn } from "./js/render-functions";
 import { getGalleryData } from "./js/pixabay-api";
@@ -69,7 +68,13 @@ async function onSubmitForm(event) {
 
     renderGallery(data);
     lightbox.refresh();
-    showBtn();
+
+
+    if (data.hits.length < 15) {
+      hideBtn();
+    } else {
+      showBtn();
+    }
   } catch (error) {
     iziToast.error({
       title: 'Error',
